@@ -99,5 +99,11 @@ By the end of this project, you will have a secure bastion host configured in AW
 - Private server:
     - Security patches auto-installed
 
+## Infrastructure Destruction
+To destroy the infrastructure created by this project, run the following command:
+```bash
+cd terraform
+terraform destroy
+```
 ## License
 This project is licensed under the MIT License - see the [LICENSE](https://github.com/MGhaith/Bastion-Host/blob/main/LICENSE) file for details.
