@@ -112,5 +112,15 @@ terraform destroy
 - The `outputs.tf` file contains the outputs, such as the bastion host public IP and private server private IP.
 - The `providers.tf` file specifies the AWS provider and region.
 - The `variables.tf` file defines the input variables, such as the public IP address, instance AMI ID, bastion host public key path, and private server public key path.
+
+## Ansible Configuration
+- The Ansible configuration files are located in the `ansible/` directory.
+- The `inventory.ini` file defines the inventory, with the bastion host and private server hosts.
+- The `playbook.yml` file is the main Ansible playbook to configure the bastion host.
+- The `roles/bastion/` directory contains the Ansible role to configure the bastion host.
+    - The `handlers/` directory contains the handlers for the bastion host role.
+    - The `tasks/` directory contains the tasks for the bastion host role.
+    - The `templates/` directory contains the templates for the bastion host role.
+
 ## License
 This project is licensed under the MIT License - see the [LICENSE](https://github.com/MGhaith/Bastion-Host/blob/main/LICENSE) file for details.
