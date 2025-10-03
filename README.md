@@ -1,5 +1,5 @@
 # Bastion Host (WIP)
-A bastion host for managing access to private infrastructure.
+This project demonstrates how to configure a bastion host in AWS to securely access private infrastructure. The infrastructure is provisioned using Terraform, and the bastion host is configured using Ansible.
 
 ## Project Structure
 ```bash
