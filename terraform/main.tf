@@ -103,3 +103,28 @@ resource "aws_key_pair" "private_key" {
   key_name   = "private-key"
   public_key = file(var.private_pubkey)
 }
+
+# -------------------------------
+# EC2 Instances
+# -------------------------------
+resource "aws_instance" "bastion" {
+  ami                         = var.ami
+  instance_type               = "t3.micro"
+  subnet_id                   = aws_subnet.public.id
+  vpc_security_group_ids      = [aws_security_group.bastion_sg.id]
+  key_name                    = aws_key_pair.bastion_key.key_name
+  associate_public_ip_address = true
+
+  tags = { Name = "BastionHost" }
+}
+
+resource "aws_instance" "private_server" {
+  ami                         = var.ami
+  instance_type               = "t3.micro"
+  subnet_id                   = aws_subnet.private.id
+  vpc_security_group_ids      = [aws_security_group.private_sg.id]
+  key_name                    = aws_key_pair.private_key.key_name
+  associate_public_ip_address = false
+
+  tags = { Name = "PrivateServer" }
+}
