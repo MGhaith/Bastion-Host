@@ -1,0 +1,14 @@
+---
+- hosts: bastion
+  become: yes
+  roles:
+    - bastion
+
+- hosts: private
+  become: yes
+  tasks:
+    - name: Ensure security updates are installed
+      yum:
+        security: yes
+        name: "*"
+        state: latest
