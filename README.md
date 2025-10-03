@@ -85,3 +85,6 @@ This project demonstrates how to configure a bastion host in AWS to securely acc
     cd ../ansible/
     ansible-playbook -i inventory.ini playbook.yml
     ```
+
+## License
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/MGhaith/Bastion-Host/blob/main/LICENSE) file for details.
