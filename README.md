@@ -105,5 +105,12 @@ To destroy the infrastructure created by this project, run the following command
 cd terraform
 terraform destroy
 ```
+
+## Terraform Configuration
+- The Terraform configuration files are located in the `terraform/` directory.
+- The main configuration file is `main.tf`, which defines the AWS resources.
+- The `outputs.tf` file contains the outputs, such as the bastion host public IP and private server private IP.
+- The `providers.tf` file specifies the AWS provider and region.
+- The `variables.tf` file defines the input variables, such as the public IP address, instance AMI ID, bastion host public key path, and private server public key path.
 ## License
 This project is licensed under the MIT License - see the [LICENSE](https://github.com/MGhaith/Bastion-Host/blob/main/LICENSE) file for details.
