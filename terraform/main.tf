@@ -91,3 +91,15 @@ resource "aws_security_group" "private_sg" {
   tags = { Name = "private-sg" }
 }
 
+# -------------------------------
+# Key Pair
+# -------------------------------
+resource "aws_key_pair" "bastion_key" {
+  key_name   = "bastion-key"
+  public_key = file(var.bastion_pubkey)
+}
+
+resource "aws_key_pair" "private_key" {
+  key_name   = "private-key"
+  public_key = file(var.private_pubkey)
+}
