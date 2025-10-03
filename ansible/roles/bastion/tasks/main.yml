@@ -1,0 +1,48 @@
+---
+# Update system
+- name: Update all packages
+  yum:
+    name: "*"
+    state: latest
+
+# Install fail2ban
+- name: Install fail2ban
+  yum:
+    name: fail2ban
+    state: present
+
+- name: Ensure fail2ban is enabled and started
+  systemd:
+    name: fail2ban
+    enabled: yes
+    state: started
+
+# Configure fail2ban
+- name: Deploy fail2ban config
+  template:
+    src: jail.local.j2
+    dest: /etc/fail2ban/jail.local
+  notify:
+    - restart fail2ban
+
+# Disable root SSH login
+- name: Disable root SSH login
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^PermitRootLogin'
+    line: 'PermitRootLogin no'
+    state: present
+  notify:
+    - restart ssh
+
+# Ensure UFW/iptables installed
+- name: Install firewalld
+  yum:
+    name: firewalld
+    state: present
+
+- name: Ensure firewalld is enabled and started
+  systemd:
+    name: firewalld
+    enabled: yes
+    state: started
