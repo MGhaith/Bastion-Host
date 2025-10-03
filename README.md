@@ -20,3 +20,68 @@ This project demonstrates how to configure a bastion host in AWS to securely acc
     ├── providers.tf # Terraform providers
     └── variables.tf # Terraform variables
 ```
+## Set Up
+### Prerequisites
+
+- AWS account
+- Terraform installed
+- Ansible installed
+
+### Steps
+1. Clone the repository:
+    ```bash
+    git clone https://github.com/MGhaith/Bastion-Host.git
+    cd Bastion-Host
+    ```
+2. Generate SSH keys:
+    - Bastion host key:
+        ```bash
+        ssh-keygen -t rsa -f ~/.ssh/bastion-key
+        ```
+    - Private server key:
+        ```bash
+        ssh-keygen -t rsa -f ~/.ssh/private-server-key
+        ```
+3. Deploy the infrastructure:
+    ```bash
+    cd terraform
+    terraform init
+    terraform apply
+    ```
+    > **Note**: You will be prompted to enter your public IP address, the bastion host public key path, and the private server public key path. Alternatively, you can set these values in the `terraform/variables.tf` file as default values.
+
+4. Configure SSH Access
+    - Update your `~/.ssh/config` file
+    ```bash
+        Host bastion
+            HostName <bastion-public-ip> # replace with the bastion host public IP
+            User ec2-user
+            IdentityFile ~/.ssh/bastion-key # replace with the path to the bastion host private key
+
+        Host private-server
+            HostName <private-server-private-ip> # replace with the private server private IP
+            User ec2-user
+            ProxyJump bastion
+            IdentityFile ~/.ssh/private-server-key # replace with the path to the private server private key
+    ```
+    - Test the SSH connection to the bastion host:
+        ```bash
+        ssh bastion            # Connect to bastion
+        ```
+    - Test the SSH connection to the private server:
+        ```bash
+        ssh private-server     # Directly connect (auto-jumps through bastion)
+        ```
+
+5. Update `inventory.ini`:
+   - After a successful deployment, update the `ansible/inventory.ini` file with the Terraform outputs.
+        ```bash
+        terraform output bastion_public_ip
+        terraform output private_server_private_ip
+        ```
+    - Update the `inventory.ini` file with the paths to private keys (e.g., `~/.ssh/bastion-key` and `~/.ssh/private-server-key`):
+6. Run the Ansible playbook:
+    ```bash
+    cd ../ansible/
+    ansible-playbook -i inventory.ini playbook.yml
+    ```
