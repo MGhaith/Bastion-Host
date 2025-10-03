@@ -90,6 +90,14 @@ This project demonstrates how to configure a bastion host in AWS to securely acc
     cd ../ansible/
     ansible-playbook -i inventory.ini playbook.yml
     ```
+### Result
+By the end of this project, you will have a secure bastion host configured in AWS, with Fail2ban protecting SSH, root login disabled, and a firewall active. The private server will also have security patches auto-installed.
+- Bastion host:
+    - Fail2ban protecting SSH
+    - Root login disabled
+    - Firewall active
+- Private server:
+    - Security patches auto-installed
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE](https://github.com/MGhaith/Bastion-Host/blob/main/LICENSE) file for details.
